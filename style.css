@@ -1,1 +1,133 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
 
+body {
+    background-color: #0b0f19;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 20px;
+    background-color: #111827;
+    border-bottom: 2px solid #3b82f6;
+    text-align: center;
+}
+
+h1 {
+    color: #60a5fa;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    background-color: #0f1423;
+}
+
+nav button {
+    padding: 10px 18px;
+    background-color: #1e293b;
+    color: #93c5fd;
+    border: 1px solid #3b82f6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+nav button:hover, nav button.active {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.module {
+    display: none;
+    width: 100%;
+    max-width: 1100px;
+    background-color: #111827;
+    border-radius: 8px;
+    padding: 25px;
+    border: 1px solid #1e3a8a;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+.module.active {
+    display: block;
+}
+
+.control-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: #1e293b;
+    padding: 15px;
+    border-radius: 6px;
+    align-items: center;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    color: #93c5fd;
+    font-size: 0.9rem;
+}
+
+input, select {
+    padding: 8px 12px;
+    background-color: #0b0f19;
+    color: #ffffff;
+    border: 1px solid #3b82f6;
+    border-radius: 4px;
+    outline: none;
+}
+
+canvas {
+    width: 100% !important;
+    background-color: #050811;
+    border-radius: 6px;
+    border: 1px solid #1e293b;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.data-card {
+    background-color: #1e293b;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #3b82f6;
+}
+
+.instruction-tag {
+    font-size: 0.9rem;
+    color: #60a5fa;
+    margin-bottom: 15px;
+}

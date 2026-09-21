@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlinho Physique</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>CARLINHO PHYSIQUE</h1>
+    </header>
+    <nav>
+        <button onclick="switchModule('mechanics')" id="btn-mechanics" class="active">1. Mecânica Clássica</button>
+        <button onclick="switchModule('thermo')" id="btn-thermo">2. Termodinâmica & Fluidos</button>
+        <button onclick="switchModule('electro')" id="btn-electro">3. Eletromagnetismo & Óptica</button>
+        <button onclick="switchModule('waves')" id="btn-waves">4. Ondas & Acústica</button>
+        <button onclick="switchModule('modern')" id="btn-modern">5. Física Moderna & Relatividade</button>
+    </nav>
+    <main>
+        <div id="mechanics" class="module active">
+            <h2 style="color: #60a5fa; margin-bottom: 10px;">Mecânica Clássica: Lançamento de Projéteis</h2>
+            <p class="instruction-tag">Simule a trajetória cinemática alterando o ângulo, velocidade inicial e gravidade local.</p>
+            
+            <div class="control-panel">
+                <div class="control-group">
+                    <label>Ângulo (°): <span id="vAngle">45</span></label>
+                    <input type="range" id="angle" min="5" max="85" value="45" oninput="updateMechanics()">
+                </div>
+                <div class="control-group">
+                    <label>Velocidade Inicial (m/s): <span id="vSpeed">30</span></label>
+                    <input type="range" id="speed" min="5" max="60" value="30" oninput="updateMechanics()">
+                </div>
+                <div class="control-group">
+                    <label>Corpo Celeste (Gravidade):</label>
+                    <select id="gravity" onchange="updateMechanics()">
+                        <option value="9.81">Terra (9.81 m/s²)</option>
+                        <option value="1.62">Lua (1.62 m/s²)</option>
+                        <option value="3.71">Marte (3.71 m/s²)</option>
+                        <option value="24.79">Júpiter (24.79 m/s²)</option>
+                    </select>
+                </div>
+                <button onclick="startProjectileSim()" style="padding: 10px 20px; background-color: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">Lançar Projétil</button>
+            </div>
 
+            <canvas id="mechanicsCanvas" height="350"></canvas>
+
+            <div class="data-grid">
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Alcance Máximo (R)</p>
+                    <h3 id="resRange" style="color: #fff;">0.00 m</h3>
+                </div>
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Altura Máxima (H)</p>
+                    <h3 id="resHeight" style="color: #fff;">0.00 m</h3>
+                </div>
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Tempo de Voo (t)</p>
+                    <h3 id="resTime" style="color: #fff;">0.00 s</h3>
+                </div>
+            </div>
+        </div>
+        <div id="thermo" class="module">
+            <h2 style="color: #60a5fa; margin-bottom: 10px;">Termodinâmica: Modelo Cinético dos Gases Ideais</h2>
+            <p class="instruction-tag">Aumente a temperatura para elevar a energia cinética média das partículas ou altere o volume para observar a variação de pressão (PV = nRT).</p>
+
+            <div class="control-panel">
+                <div class="control-group">
+                    <label>Temperatura (K): <span id="vTemp">300</span></label>
+                    <input type="range" id="temp" min="100" max="1000" value="300" oninput="updateThermoParams()">
+                </div>
+                <div class="control-group">
+                    <label>Volume do Recipiente (L): <span id="vVol">50</span></label>
+                    <input type="range" id="vol" min="20" max="100" value="50" oninput="updateThermoParams()">
+                </div>
+            </div>
+
+            <canvas id="thermoCanvas" height="350"></canvas>
+
+            <div class="data-grid">
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Pressão Calculada (P)</p>
+                    <h3 id="resPressure" style="color: #fff;">1.00 atm</h3>
+                </div>
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Energia Cinética Média (Ec)</p>
+                    <h3 id="resKinetic" style="color: #fff;">0.00 J</h3>
+                </div>
+            </div>
+        </div>
+        <div id="electro" class="module">
+            <h2 style="color: #60a5fa; margin-bottom: 10px;">Óptica Geométrica: Refração e Lei de Snell-Descartes</h2>
+            <p class="instruction-tag">Simule a refração de um feixe de luz passando do Meio 1 para o Meio 2.</p>
+
+            <div class="control-panel">
+                <div class="control-group">
+                    <label>Ângulo de Incidência θ₁ (°): <span id="vIncAngle">45</span></label>
+                    <input type="range" id="incAngle" min="0" max="85" value="45" oninput="updateOptics()">
+                </div>
+                <div class="control-group">
+                    <label>Índice de Refração Meio 1 (n₁):</label>
+                    <select id="n1" onchange="updateOptics()">
+                        <option value="1.00">Ar (n = 1.00)</option>
+                        <option value="1.33">Água (n = 1.33)</option>
+                        <option value="1.52">Vidro (n = 1.52)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Índice de Refração Meio 2 (n₂):</label>
+                    <select id="n2" onchange="updateOptics()">
+                        <option value="1.52" selected>Vidro (n = 1.52)</option>
+                        <option value="1.33">Água (n = 1.33)</option>
+                        <option value="2.42">Diamante (n = 2.42)</option>
+                        <option value="1.00">Ar (n = 1.00)</option>
+                    </select>
+                </div>
+            </div>
+
+            <canvas id="opticsCanvas" height="350"></canvas>
+
+            <div class="data-grid">
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Ângulo de Refração θ₂</p>
+                    <h3 id="resRefAngle" style="color: #fff;">0.00°</h3>
+                </div>
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Velocidade da Luz no Meio 2</p>
+                    <h3 id="resLightSpeed" style="color: #fff;">0.00 km/s</h3>
+                </div>
+            </div>
+        </div>
+        <div id="waves" class="module">
+            <h2 style="color: #60a5fa; margin-bottom: 10px;">Ondulatória: Propagação e Superposição Transversal</h2>
+            <p class="instruction-tag">Ajuste a frequência e a amplitude para visualizar o comprimento de onda e o comportamento da onda em tempo real.</p>
+            <audio id="waveAudio" src="frequencia_440hz.mp3" autoplay loop muted></audio>
+
+            <div class="control-panel">
+                <div class="control-group">
+                    <label>Frequência (Hz): <span id="vFreq">2</span></label>
+                    <input type="range" id="freq" min="0.5" max="5" step="0.1" value="2" oninput="updateWaveParams()">
+                </div>
+                <div class="control-group">
+                    <label>Amplitude (px): <span id="vAmp">40</span></label>
+                    <input type="range" id="amp" min="10" max="80" value="40" oninput="updateWaveParams()">
+                </div>
+            </div>
+
+            <canvas id="wavesCanvas" height="350"></canvas>
+
+            <div class="data-grid">
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Comprimento de Onda (λ)</p>
+                    <h3 id="resLambda" style="color: #fff;">0 px</h3>
+                </div>
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Período (T)</p>
+                    <h3 id="resPeriod" style="color: #fff;">0.00 s</h3>
+                </div>
+            </div>
+        </div>
+        <div id="modern" class="module">
+            <h2 style="color: #60a5fa; margin-bottom: 10px;">Física Moderna: Dilatação do Tempo Relativística (Einstein)</h2>
+            <p class="instruction-tag">Ao se aproximar da velocidade da luz (c = 300.000 km/s), o tempo passa mais devagar para o observador em movimento.</p>
+
+            <div class="control-panel">
+                <div class="control-group">
+                    <label>Velocidade (% da velocidade da luz c): <span id="vVelocity">80</span>%</label>
+                    <input type="range" id="velocity" min="0" max="99" value="80" oninput="updateModernParams()">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; background-color: #1e293b; padding: 25px; border-radius: 6px; text-align: center;">
+                    <h4 style="color: #93c5fd;">Relógio da Terra (Referencial Estacionário)</h4>
+                    <p id="earthClock" style="font-size: 2.5rem; font-weight: bold; color: #fff; margin-top: 10px;">00:00</p>
+                </div>
+                <div style="flex: 1; background-color: #1e293b; padding: 25px; border-radius: 6px; text-align: center;">
+                    <h4 style="color: #93c5fd;">Relógio da Nave em Movimento</h4>
+                    <p id="shipClock" style="font-size: 2.5rem; font-weight: bold; color: #60a5fa; margin-top: 10px;">00:00</p>
+                </div>
+            </div>
+            <div class="data-grid">
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Fator Lorentz (γ)</p>
+                    <h3 id="resLorentz" style="color: #fff;">1.00</h3>
+                </div>
+                <div class="data-card">
+                    <p style="color: #93c5fd; font-size: 0.85rem;">Efeito fotoelétrico / Energia do Fóton E = hf</p>
+                    <h3 id="resPhoton" style="color: #fff;">0.00 eV</h3>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
