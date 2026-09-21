@@ -325,6 +325,7 @@ function initModern() {
         }, 1000);
     }
 }
+
 function updateModernParams() {
     const velPct = parseFloat(document.getElementById('velocity').value);
     document.getElementById('vVelocity').innerText = velPct;
